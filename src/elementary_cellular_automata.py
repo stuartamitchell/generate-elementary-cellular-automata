@@ -1,6 +1,6 @@
 import numpy as np
 import random
-from PIL import Image, ImageColor
+from PIL import Image
 
 '''
 A class to represent an elementary cellular automaton
@@ -19,7 +19,7 @@ height : int
 history : numpy array
     an array of the generations of the automaton
 '''
-class ElemCA:
+class ElementaryCellularAutomata:
     def __init__(self, rule, width, height, random_state):
         '''
         Initialises the elementary cellular automaton object
@@ -110,20 +110,6 @@ class ElemCA:
         
         return rule_bin
     
-    def create_image(self, scale):
-        '''
-        
-        '''
-        img = Image.new('L', (self.width * scale, self.height * scale), 'white')
-        pixels = img.load()
-
-        for i in range(img.size[0]):
-            for j in range(img.size[1]):
-                if self.history[j // scale, i // scale] == 1:
-                    img.putpixel((i,j), 0)
-
-        return img
-    
     def generate(self):
         '''
         Generates the complete history of the cellular automata
@@ -192,9 +178,3 @@ class ElemCA:
             parents[2] = self.current_state[i + 1]
 
         return parents
-
-if __name__ == "__main__":
-    elemCA = ElemCA(90, 400, 200, False)
-    print(elemCA.history)
-    img = elemCA.create_image(2)
-    img.show()
